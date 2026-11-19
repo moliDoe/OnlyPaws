@@ -1,0 +1,5 @@
+﻿# Project exclude paths
+/OnlyPaws/wwwroot/lib/bootstrap/dist/
+/OnlyPaws/wwwroot/lib/jquery/dist/
+/OnlyPaws/wwwroot/lib/jquery-validation/dist/
+/OnlyPaws/wwwroot/lib/jquery-validation-unobtrusive/dist/
