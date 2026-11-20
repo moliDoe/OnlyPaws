@@ -1,3 +1,15 @@
+:root {
+  --baby-pink:#F8C8D8;
+  --cotton-candy: #F4AFC8;
+  --rose-pink: #E995B5;
+  --soft-blush: #FBE1E9;
+  --cream: #FFF8F3;
+  --white: #FFFFFF;
+  --pink-lavender: #E5D5ED;
+  --rose-brown: #84616F;
+  --dark-plum: #604656;
+}
+
 html {
   font-size: 14px;
 }
