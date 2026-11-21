@@ -156,6 +156,38 @@ namespace OnlyPaws.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("OnlyPaws.Models.Announcement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ForumId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ForumId");
+
+                    b.ToTable("Announcements");
+                });
+
             modelBuilder.Entity("OnlyPaws.Models.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -245,6 +277,294 @@ namespace OnlyPaws.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("OnlyPaws.Models.Attachment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("MessageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MessageId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Attachments", t =>
+                        {
+                            t.HasCheckConstraint("CK_Attachment_SingleOwner", "(\"PostId\" IS NULL) <> (\"MessageId\" IS NULL)");
+                        });
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.BannedWord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Word")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Word")
+                        .IsUnique();
+
+                    b.ToTable("BannedWords");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Forum", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("AllowGuestRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AllowGuestWrite")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PostCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ThreadCount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Forums");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.ForumModerator", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ForumId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserId", "ForumId");
+
+                    b.HasIndex("ForumId");
+
+                    b.ToTable("ForumModerators");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.ForumThread", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ForumId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("GuestName")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("IsPinned")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("RepliesCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ViewsCount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("ForumId");
+
+                    b.ToTable("Threads", t =>
+                        {
+                            t.HasCheckConstraint("CK_ForumThread_AuthorOrGuest", "(\"AuthorId\" IS NULL) <> (\"GuestName\" IS NULL)");
+                        });
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeletedByReceiver")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeletedBySender")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ReadAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("SentAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Post", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("GuestName")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("PawsCount")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("ThreadId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("ThreadId");
+
+                    b.ToTable("Posts", t =>
+                        {
+                            t.HasCheckConstraint("CK_Post_AuthorOrGuest", "(\"AuthorId\" IS NULL) <> (\"GuestName\" IS NULL)");
+                        });
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.ReportedPost", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ReporterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ResolvedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ResolverId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("ReporterId");
+
+                    b.HasIndex("ResolverId");
+
+                    b.ToTable("ReportedPosts");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -294,6 +614,185 @@ namespace OnlyPaws.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Announcement", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.Forum", "Forum")
+                        .WithMany("Announcements")
+                        .HasForeignKey("ForumId");
+
+                    b.Navigation("Forum");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Attachment", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.Message", "Message")
+                        .WithMany("Attachments")
+                        .HasForeignKey("MessageId");
+
+                    b.HasOne("OnlyPaws.Models.Post", "Post")
+                        .WithMany("Attachments")
+                        .HasForeignKey("PostId");
+
+                    b.Navigation("Message");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Forum", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.Category", "Category")
+                        .WithMany("Forums")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.ForumModerator", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.Forum", "Forum")
+                        .WithMany("Moderators")
+                        .HasForeignKey("ForumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlyPaws.Models.AppUser", "User")
+                        .WithMany("ModeratedForums")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Forum");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.ForumThread", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.AppUser", "Author")
+                        .WithMany("Threads")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OnlyPaws.Models.Forum", "Forum")
+                        .WithMany("Threads")
+                        .HasForeignKey("ForumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Forum");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Message", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.AppUser", "Receiver")
+                        .WithMany("ReceivedMessages")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OnlyPaws.Models.AppUser", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Post", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.AppUser", "Author")
+                        .WithMany("Posts")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OnlyPaws.Models.ForumThread", "Thread")
+                        .WithMany("Posts")
+                        .HasForeignKey("ThreadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Thread");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.ReportedPost", b =>
+                {
+                    b.HasOne("OnlyPaws.Models.Post", "Post")
+                        .WithMany("Reports")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlyPaws.Models.AppUser", "Reporter")
+                        .WithMany()
+                        .HasForeignKey("ReporterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OnlyPaws.Models.AppUser", "Resolver")
+                        .WithMany()
+                        .HasForeignKey("ResolverId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Reporter");
+
+                    b.Navigation("Resolver");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.AppUser", b =>
+                {
+                    b.Navigation("ModeratedForums");
+
+                    b.Navigation("Posts");
+
+                    b.Navigation("ReceivedMessages");
+
+                    b.Navigation("SentMessages");
+
+                    b.Navigation("Threads");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Category", b =>
+                {
+                    b.Navigation("Forums");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Forum", b =>
+                {
+                    b.Navigation("Announcements");
+
+                    b.Navigation("Moderators");
+
+                    b.Navigation("Threads");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.ForumThread", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Message", b =>
+                {
+                    b.Navigation("Attachments");
+                });
+
+            modelBuilder.Entity("OnlyPaws.Models.Post", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("Reports");
                 });
 #pragma warning restore 612, 618
         }
