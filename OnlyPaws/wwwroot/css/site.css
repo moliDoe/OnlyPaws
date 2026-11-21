@@ -43,6 +43,8 @@ html {
 }
 
 body {
+  margin-top: 0;
+  padding-top: 0;
   margin-bottom: 60px;
   background-color: var(--bg-main);
   color: var(--text-primary);
@@ -90,3 +92,9 @@ body {
 .preview-button:hover {
   background-color: var(--btn-hover);
 }
+
+.navbar-brand img {
+  height: 30px;
+  width: auto;
+}
+
