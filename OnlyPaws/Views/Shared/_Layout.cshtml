@@ -19,7 +19,12 @@
             <button class="btn btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                 <i class="bi bi-list"></i>
             </button>
-            <a class="nav-link" asp-area="" asp-controller="SignIn" asp-action="Index">Sign In</a>
+            <div class="navbar-actions">
+                <a class="nav-link" asp-area="" asp-controller="SignIn" asp-action="Index">Sign In</a>
+                <button class="btn theme-toggle" type="button" id="themeToggle" aria-label="Toggle theme">
+                    <i class="bi bi-moon-stars" id="themeIcon"></i>
+                </button>
+            </div>
         </div>
     </nav>
     <div class="offcanvas offcanvas-start onlypaws-menu" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -46,7 +51,7 @@
 </div>
 
 <footer class="border-top footer text-muted">
-    <div class="container">
+    <div class="container d-flex justify-content-between align-items-center">
         &copy; 2026 - OnlyPaws - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
