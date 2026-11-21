@@ -1,5 +1,5 @@
 :root {
-  --baby-pink:#F8C8D8;
+  --baby-pink: #F8C8D8;
   --cotton-candy: #F4AFC8;
   --rose-pink: #E995B5;
   --soft-blush: #FBE1E9;
@@ -7,21 +7,31 @@
   --white: #FFFFFF;
   --rose-brown: #84616F;
   --dark-plum: #604656;
+}
   
   /* Light theme */
-  --bg-main: var(--cream) ;
+[data-theme="light"] {
+  --bg-main: var(--cream);
   --bg-card: var(--soft-blush);
   --bg-highlight: var(--baby-pink);
-  --text-primary: var(--dark-plum) ; 
+  --text-primary: var(--dark-plum);
   --text-secondary: var(--rose-brown);
   --btn-primary: var(--cotton-candy);
   --btn-hover: var(--rose-pink);
   --border-color: var(--baby-pink);
+}
   
   /* Dark theme */
-  
-  
-}
+ [data-theme="dark"] {
+   --bg-main: #302632;
+   --bg-card: #463743;
+   --bg-highlight: #604656;
+   --text-primary: #FFF8F3;
+   --text-secondary: #F4AFC8;
+   --btn-primary: #E995B5;
+   --btn-hover: #F4AFC8;
+   --border-color: #84616F;
+  }
 
 html {
   font-size: 14px;
@@ -145,4 +155,16 @@ body {
 .btn-menu {
   font-size: 25px;
   color: var(--text-primary);
+}
+.theme-toggle {
+  color: var(--text-primary);
+  border: none;
+}
+
+.theme-toggle:hover {
+  color: var(--rose-pink);
+}
+
+.nav-link:hover {
+  color: var(--rose-pink);
 }
