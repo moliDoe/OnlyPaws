@@ -93,8 +93,31 @@ body {
   background-color: var(--btn-hover);
 }
 
+.navbar-onlypaws {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 24px;
+}
+
+.navbar-grid {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  margin: 0;
+}
+
 .navbar-brand img {
-  height: 30px;
+  height: 50px;
   width: auto;
 }
 
