@@ -121,3 +121,22 @@ body {
   width: auto;
 }
 
+.onlypaws-menu {
+  width: 300px;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+.onlypaws-menu .offcanvas-header {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--baby-pink);
+}
+
+.onlypaws-menu .offcanvas-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.btn-menu {
+  font-size: 25px;
+  color: var(--text-primary);
+}
