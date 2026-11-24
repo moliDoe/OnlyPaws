@@ -1,0 +1,9 @@
+.announcement-box {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 3px solid var(--border-color);
+    border-radius: 15px;
+}
+.bi-patch-exclamation {
+    color: var(--btn-hover);
+}
