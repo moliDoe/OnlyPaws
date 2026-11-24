@@ -36,7 +36,7 @@
     width: 100%;
 }
 .forum-row:hover {
-    border: 2px solid var(--border-color);
+    box-shadow: 0 0 0 1px var(--border-color);
 }
 .forum-description {
     font-size: 0.9rem;
