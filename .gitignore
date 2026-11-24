@@ -3,3 +3,7 @@
 /OnlyPaws/wwwroot/lib/jquery/dist/
 /OnlyPaws/wwwroot/lib/jquery-validation/dist/
 /OnlyPaws/wwwroot/lib/jquery-validation-unobtrusive/dist/
+bin/
+obj/
+.idea/
+*.user
