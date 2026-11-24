@@ -1,9 +1,37 @@
+.home-content {
+    max-width: 1600px;
+    margin: 0 auto;
+}
 .announcement-box {
     background-color: var(--bg-card);
     color: var(--text-primary);
     border: 3px solid var(--border-color);
     border-radius: 15px;
+    width: 70%;
+    margin: 0 auto;
 }
 .bi-patch-exclamation {
     color: var(--btn-hover);
+    flex-shrink: 0;
+}
+.category-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    overflow: hidden;
+    max-width: 100%;
+}
+.category-header {
+    background-color: var(--bg-highlight);
+    color: var(--text-primary);
+}
+.forum-list{
+    padding: 12px;
+}
+.forum-row {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    width: 100%;
 }
