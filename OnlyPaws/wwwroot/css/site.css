@@ -69,34 +69,8 @@ body {
   text-align: start;
 }
 
-/* Testing palette */
-
-.theme-preview {
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  padding: 30px;
-  border-radius: 16px;
-}
-
-.preview-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  padding: 24px;
-  border-radius: 18px;
-  max-width: 400px;
-}
-
 .secondary-text {
   color: var(--text-secondary);
-}
-
-.preview-button {
-  background-color: var(--btn-primary);
-  color: var(--text-primary);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  cursor: pointer;
 }
 
 .preview-button:hover {
