@@ -1,0 +1,14 @@
+﻿namespace OnlyPaws.Models;
+
+public class Announcement
+{
+    public Guid Id { get; set; }
+    
+    public Guid? ForumId { get; set; } 
+    public Forum? Forum { get; set; }  
+    
+    public string Title { get; set; }  = string.Empty;
+    public string Content { get; set; }  = string.Empty;
+    public DateTime CreatedAt { get; set; }
+    public DateTime? EndDate { get; set; }
+}
