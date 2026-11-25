@@ -9,11 +9,16 @@
 <h1>New Category</h1>
 
 <form asp-action="Create" method="post">
-    <div>
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+    
+    <label asp-for="Name" class="form-label"></label>
+    
+    <div class="input-group">
+        <input asp-for="Name" class="form-control"/>
+        <button type="submit">Create</button>
     </div>
+    
+    <span asp-validation-for="Name" class="text-danger"></span>
+    
 </form>
 
 @section Scripts {
