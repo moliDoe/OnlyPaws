@@ -20,8 +20,9 @@
             <button class="btn btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                 <i class="bi bi-list"></i>
             </button>
+            
             <div class="navbar-actions">
-                <a class="nav-link" asp-area="" asp-controller="SignIn" asp-action="Index">Sign In</a>
+                <partial name ="_LoginPartial"/>
                 <button class="btn theme-toggle" type="button" id="themeToggle" aria-label="Toggle theme">
                     <i class="bi bi-moon-stars" id="themeIcon"></i>
                 </button>
@@ -36,10 +37,10 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </li>
             </ul>
         </div>
