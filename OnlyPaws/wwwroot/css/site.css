@@ -1,3 +1,38 @@
+:root {
+  --baby-pink: #F8C8D8;
+  --cotton-candy: #F4AFC8;
+  --rose-pink: #E995B5;
+  --soft-blush: #FBE1E9;
+  --cream: #FFF8F3;
+  --white: #FFFFFF;
+  --rose-brown: #84616F;
+  --dark-plum: #604656;
+}
+  
+  /* Light theme */
+[data-theme="light"] {
+  --bg-main: var(--cream);
+  --bg-card: var(--soft-blush);
+  --bg-highlight: var(--baby-pink);
+  --text-primary: var(--dark-plum);
+  --text-secondary: var(--rose-brown);
+  --btn-primary: var(--cotton-candy);
+  --btn-hover: var(--rose-pink);
+  --border-color: var(--baby-pink);
+}
+  
+  /* Dark theme */
+ [data-theme="dark"] {
+   --bg-main: #302632;
+   --bg-card: #463743;
+   --bg-highlight: #604656;
+   --text-primary: #FFF8F3;
+   --text-secondary: #F4AFC8;
+   --btn-primary: #E995B5;
+   --btn-hover: #F4AFC8;
+   --border-color: #84616F;
+  }
+
 html {
   font-size: 14px;
 }
@@ -9,7 +44,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.2rem var(--rose-pink);
 }
 
 html {
@@ -18,14 +53,92 @@ html {
 }
 
 body {
+  margin-top: 0;
+  padding-top: 0;
   margin-bottom: 60px;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
+  color: var(--text-secondary);
   text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.secondary-text {
+  color: var(--text-secondary);
+}
+
+.preview-button:hover {
+  background-color: var(--btn-hover);
+}
+
+.navbar-onlypaws {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 24px;
+}
+
+.navbar-grid {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-brand img {
+  height: 50px;
+  width: auto;
+}
+
+.onlypaws-menu {
+  width: 300px;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+.onlypaws-menu .offcanvas-header {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--baby-pink);
+}
+
+.onlypaws-menu .offcanvas-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.btn-menu {
+  font-size: 25px;
+  color: var(--text-primary);
+}
+.theme-toggle {
+  color: var(--text-primary);
+  border: none;
+}
+
+.theme-toggle:hover {
+  color: var(--rose-pink);
+}
+
+.nav-link:hover {
+  color: var(--rose-pink);
 }
