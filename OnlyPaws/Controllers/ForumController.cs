@@ -92,7 +92,18 @@ public class ForumController : Controller
                 Description = fd.Description,
                 CategoryName =  fd.Category.Name,
                 AllowGuestWrite = fd.AllowGuestWrite,
-                AllowGuestRead = fd.AllowGuestRead
+                AllowGuestRead = fd.AllowGuestRead,
+                Threads = fd.Threads.Select(
+                    th => new ForumThreadListViewModel
+                    {
+                        Id = th.Id,
+                        Title = th.Title,
+                        AuthorName = th.Author != null ? th.Author.UserName! : (th.GuestName ?? "Guest"),
+                        CreatedAt = th.CreatedAt,
+                        IsPinned = th.IsPinned,
+                        ViewsCount = th.ViewsCount,
+                        PostsCount = th.Posts.Count()
+                    }).ToList()
             })
             .FirstOrDefaultAsync();
 

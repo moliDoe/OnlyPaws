@@ -8,4 +8,6 @@ public class ForumDetailsViewModel
     public string CategoryName { get; set; } = string.Empty;
     public bool AllowGuestRead { get; set; }
     public bool AllowGuestWrite { get; set; }
+    
+    public List<ForumThreadListViewModel> Threads { get; set; }
 }
