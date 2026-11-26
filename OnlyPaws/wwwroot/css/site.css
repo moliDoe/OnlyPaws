@@ -118,7 +118,7 @@ body {
 }
 .onlypaws-menu .offcanvas-header {
   background-color: var(--bg-card);
-  border-bottom: 1px solid var(--baby-pink);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .onlypaws-menu .offcanvas-title {
@@ -141,4 +141,15 @@ body {
 
 .nav-link:hover {
   color: var(--rose-pink);
+}
+
+.nav-link {
+  color: var(--text-primary);
+}
+a {
+  color: var(--text-secondary);
+}
+.form-check-input:checked {
+  background-color: var(--btn-hover);
+  border-color: var(--bg-card);
 }
