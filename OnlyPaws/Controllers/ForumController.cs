@@ -40,6 +40,13 @@ public class ForumController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(ForumCreateViewModel model)
     {
+
+        if (model.CategoryId != null && !await _context.Categories.AnyAsync(c => c.Id == model.CategoryId))
+        {
+            ModelState.AddModelError(nameof(model.CategoryId), "Category not found");
+        }
+        
+        
         if (!ModelState.IsValid)
         {
             model.Categories = await GetCategories();
@@ -48,7 +55,7 @@ public class ForumController : Controller
 
         var newForum = new Forum{
             Name = model.Name.Trim(),
-            Description = model.Description.Trim(),
+            Description = model.Description?.Trim(),
             CategoryId = model.CategoryId,
             AllowGuestWrite = model.AllowGuestWrite,
             AllowGuestRead = model.AllowGuestRead
