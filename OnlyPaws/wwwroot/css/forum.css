@@ -1,5 +1,6 @@
 .forum-form-card {
     max-width: 900px;
+    min-height: 400px;
     margin: 40px auto;
     padding: 30px;
     background-color: var(--bg-card);

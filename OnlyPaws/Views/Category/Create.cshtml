@@ -3,24 +3,26 @@
 @{
     ViewData["Title"] = "New Category";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/forum.css" asp-append-version="true"/>
+}
+<div class="forum-form-card d-flex flex-column">
+    <h2 class="mb-1">New Category</h2>
+    <p class="secondary-text mb-4">Mark a new territory for pet discussions ♡</p>
 
-<h1>New Category</h1>
-
-<form asp-action="Create" method="post">
-    
-    <label asp-for="Name" class="form-label"></label>
-    
-    <div class="input-group">
-        <input asp-for="Name" class="form-control"/>
-        <button type="submit">Create</button>
-    </div>
-    
-    <span asp-validation-for="Name" class="text-danger"></span>
-    
-</form>
-
+    <form asp-action="Create" method="post" class="flex-grow-1 d-flex flex-column">
+        <div class="mb-1">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control forum-input" placeholder="Type your category here..."/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        
+        <div class="d-flex justify-content-end gap-2 mt-auto">
+            <a asp-action="Index" class="btn btn-forum">Cancel</a>
+            <button type="submit" class="btn btn-forum">Create</button>
+        </div>
+    </form>
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-
