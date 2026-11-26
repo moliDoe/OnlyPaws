@@ -1,0 +1,28 @@
+@model OnlyPaws.Models.Category
+
+@{
+    ViewData["Title"] = "New Category";
+}
+
+<!DOCTYPE html>
+
+<h1>New Category</h1>
+
+<form asp-action="Create" method="post">
+    
+    <label asp-for="Name" class="form-label"></label>
+    
+    <div class="input-group">
+        <input asp-for="Name" class="form-control"/>
+        <button type="submit">Create</button>
+    </div>
+    
+    <span asp-validation-for="Name" class="text-danger"></span>
+    
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

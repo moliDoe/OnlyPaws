@@ -1,0 +1,24 @@
+@model List<OnlyPaws.Models.Category>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Categories</h1>
+
+<div>
+    @if (Model.Count == 0)
+    {
+        <p>no categories yet</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var category in Model)
+            {
+                <li>@category.Name</li>
+            }
+        </ul>
+    }
+
+</div>
+

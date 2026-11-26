@@ -1,0 +1,24 @@
+@model OnlyPaws.ViewModels.ForumDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+@* do poprawy *@
+<h1>@Model.Name</h1> 
+<p>Category: @Model.CategoryName</p>
+
+@if (!string.IsNullOrEmpty(Model.Description))
+{
+    <div class="forum-description">@Model.Description</div>
+}
+
+@*tu dodanie thread bedzie create kiedys + gdzies isPinned *@
+
+<h3>Threads: @Model.Threads.Count</h3>
+
+<ul>
+    @foreach (var thread in Model.Threads)
+    {
+        <li>@thread.Title, Author: @thread.AuthorName, Posts: @thread.PostsCount</li>
+    }
+</ul>
