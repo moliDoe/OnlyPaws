@@ -1,0 +1,33 @@
+.auth-container {
+    margin-top: 40px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 30px;
+}
+.btn-primary{
+    background-color: var(--btn-primary);
+    border: none;
+}
+.btn-primary:hover{
+    background-color: var(--btn-hover);
+    border: none;
+    box-shadow: 0 0 0 1px var(--btn-hover);
+}
+.auth-links{
+    color: var(--btn-hover);
+}
+.auth-row {
+    align-items: center;
+    justify-content: center;
+}
+.form-floating label { 
+    color: var(--rose-brown) !important;
+}
+.form-control::placeholder {
+    color: var(--rose-brown) !important;
+    opacity: 0.6;
+}
+.form-select{
+    color: var(--rose-brown);
+}
