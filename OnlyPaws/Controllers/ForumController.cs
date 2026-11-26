@@ -100,6 +100,13 @@ public class ForumController : Controller
         {
             return NotFound();
         }
+        
+        var isAuthenticated = User.Identity!.IsAuthenticated;
+
+        if (!forum.AllowGuestRead && !isAuthenticated)
+        {
+            return Unauthorized();
+        }
 
         return View(forum);
     }
