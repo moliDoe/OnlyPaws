@@ -79,5 +79,31 @@ public class ForumController : Controller
             })
             .ToListAsync();
     }
+
+    [HttpGet]
+    public async Task<ActionResult> Details(Guid id)
+    {
+        var forum = await _context.Forums
+            .Where(forum  => forum.Id == id)
+            .Select(fd => new ForumDetailsViewModel
+            {
+                Id = fd.Id,
+                Name = fd.Name,
+                Description = fd.Description,
+                CategoryName =  fd.Category.Name,
+                AllowGuestWrite = fd.AllowGuestWrite,
+                AllowGuestRead = fd.AllowGuestRead
+            })
+            .FirstOrDefaultAsync();
+
+        if (forum == null)
+        {
+            return NotFound();
+        }
+
+        return View(forum);
+    }
+    
+    
     
 }

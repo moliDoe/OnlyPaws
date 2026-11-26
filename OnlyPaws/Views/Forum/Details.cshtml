@@ -1,0 +1,13 @@
+@model OnlyPaws.ViewModels.ForumDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h1>@Model.Name</h1> 
+
+@if (!string.IsNullOrEmpty(Model.Description))
+{
+    <div class="forum-description">@Model.Description</div>
+}
+
