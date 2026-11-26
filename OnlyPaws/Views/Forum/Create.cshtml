@@ -4,52 +4,54 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/forum.css" asp-append-version="true"/>
+}
 
-<h4>Forum</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AllowGuestRead" /> @Html.DisplayNameFor(model => model.AllowGuestRead)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AllowGuestWrite" /> @Html.DisplayNameFor(model => model.AllowGuestWrite)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="Model.Categories">
-                    <option>Choose category</option>
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<div class="forum-form-card">
+    <h2 class="mb-1">Create a new forum</h2>
+    <p class="secondary-text mb-4">Open a new space for our community ♡</p>
+    <hr/>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control forum-input" placeholder="What is your forum name?"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control forum-input" placeholder="Write the description here..."/>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label"></label>
+            <select asp-for="CategoryId" class="form-select forum-input" asp-items="Model.Categories">
+                <option value="">Choose category</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <div class="mb-1 form-check">
+            <label class="form-check-label">
+                <input class="form-check-input"
+                       asp-for="AllowGuestRead"/> @Html.DisplayNameFor(model => model.AllowGuestRead)
+            </label>
+        </div>
+        <div class="mb-4 form-check">
+            <label class="form-check-label">
+                <input class="form-check-input"
+                       asp-for="AllowGuestWrite"/> @Html.DisplayNameFor(model => model.AllowGuestWrite)
+            </label>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+            <a asp-action="Index" class="btn btn-forum">Cancel</a>
+            <button type="submit" class="btn btn-forum">Create</button>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
