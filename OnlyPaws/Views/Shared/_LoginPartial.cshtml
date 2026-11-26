@@ -1,12 +1,16 @@
 @using Microsoft.AspNetCore.Identity
 @using OnlyPaws.Models
 @inject SignInManager<AppUser> SignInManager
+@section Styles {
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+}
 
-<ul class="navbar-nav">
+<ul class="navbar-nav flex-row flex-wrap align-items-center gap-3">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <span class="nav-link">You are logged as: <strong>@User.Identity!.Name</strong></span>
+            <span class="uid-text nav-link">You are logged as: <strong>@User.Identity!.Name</strong></span>
+            <i class="uid-icon bi bi-person-fill nav-link"></i>
         </li>
         <li class="nav-item">
             <form method="post" asp-area="Identity" asp-page="/Account/Logout"
