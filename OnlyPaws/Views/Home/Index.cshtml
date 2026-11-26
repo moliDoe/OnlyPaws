@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<OnlyPaws.ViewModels.HomeCategoryViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 @section Styles {
@@ -19,31 +20,49 @@
     </section>
  
     <section class="d-flex flex-column gap-4">
-        <div class="category-card">
-            <div class="category-header px-3 py-2 fw-bold">
-                <i class="bi bi-stars"></i>
-                kat 1
-            </div>
-            <div class="forum-list d-flex flex-column gap-2">
-                <a href="#" class="forum-row d-flex justify-content-between align-items-center p-3 text-decoration-none">
-                    <div>
-                        <div class="fw-bold"> tytul forum </div>
-                        <div class="forum-description"> opis forum </div>
-                    </div>
-                    <div class="forum-stats d-flex gap-2 text-center">
-                        <div class="stats-label">
-                            <div class="fw-bold"> 5 </div>
-                            <div class="stats-text"> threads </div>
-                        </div>
+        @if (Model.Count == 0)
+        {
+            <p>No categories yet</p>
+        }
+        @foreach (var category in Model)
+        {
+            <div class="category-card">
+                <div class="category-header px-3 py-2 fw-bold">
+                    <i class="bi bi-stars"></i>
+                    @category.Name
+                </div>
+                <div class="forum-list d-flex flex-column gap-2">
+                    @if (category.Forums.Count == 0)
+                    {
+                        <p class="p-3 mb-0">No forums in this category yet.</p>
+                    }
 
-                        <div class="stats-label">
-                            <div class="fw-bold"> 120 </div>
-                            <div class="stats-text"> posts </div>
-                        </div>
-                    </div>
-                </a>
+                    @foreach (var forum in category.Forums)
+                    {
+                        <a href="#" class="forum-row d-flex justify-content-between align-items-center p-3 text-decoration-none">
+                            <div>
+                                <div class="fw-bold">@forum.Name</div>
+                                @if (!string.IsNullOrEmpty(forum.Description))
+                                {
+                                    <div class="forum-description">@forum.Description</div>
+                                }
+                            </div>
+                            <div class="forum-stats d-flex gap-2 text-center">
+                                <div class="stats-label">
+                                    <div class="fw-bold"> @forum.ThreadCount</div>
+                                    <div class="stats-text"> threads </div>
+                                </div>
+
+                                <div class="stats-label">
+                                    <div class="fw-bold"> @forum.PostCount </div>
+                                    <div class="stats-text"> posts </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
             </div>
-        </div>
+        }
     </section>
  
 </div>
