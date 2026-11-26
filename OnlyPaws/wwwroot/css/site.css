@@ -42,6 +42,17 @@ html {
     font-size: 16px;
   }
 }
+.uid-icon {
+  display: none;
+}
+@media (max-width: 992px) {
+  .uid-text {
+    display: none;
+  }
+  .uid-icon {
+    display: inline-block;
+  }
+}
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.2rem var(--rose-pink);
@@ -103,7 +114,7 @@ body {
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .navbar-brand img {
