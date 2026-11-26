@@ -1,9 +1,6 @@
 @using Microsoft.AspNetCore.Identity
 @using OnlyPaws.Models
 @inject SignInManager<AppUser> SignInManager
-@section Styles {
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-}
 
 <ul class="navbar-nav flex-row flex-wrap align-items-center gap-3">
     @if (SignInManager.IsSignedIn(User))

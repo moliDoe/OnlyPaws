@@ -39,7 +39,7 @@
 
                     @foreach (var forum in category.Forums)
                     {
-                        <a href="#" class="forum-row d-flex justify-content-between align-items-center p-3 text-decoration-none">
+                        <a asp-controller="Forum" asp-action="Details" asp-route-id="@forum.Id" class="forum-row d-flex justify-content-between align-items-center p-3 text-decoration-none">
                             <div>
                                 <div class="fw-bold">@forum.Name</div>
                                 @if (!string.IsNullOrEmpty(forum.Description))
