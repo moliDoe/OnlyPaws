@@ -1,0 +1,123 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using OnlyPaws.Data;
+using OnlyPaws.Models;
+using OnlyPaws.ViewModels.Thread;
+
+namespace OnlyPaws.Controllers;
+
+public class ForumThreadController : Controller
+{
+    
+    private readonly ApplicationDbContext _context;
+    private readonly UserManager<AppUser> _userManager;
+    
+    public ForumThreadController(ApplicationDbContext context, UserManager<AppUser> userManager)
+    {
+        _context = context;
+        _userManager = userManager;
+    }
+    
+   
+
+    [HttpGet("Forum/{forumId:guid}/Thread/Create")]
+    public async Task<IActionResult> Create(Guid forumId)
+    {
+        var forum = await _context.Forums.FindAsync(forumId);
+        if (forum == null)
+        {
+            return NotFound();
+        }
+        var isAutenticated = User.Identity!.IsAuthenticated;
+        if (!isAutenticated && !forum.AllowGuestWrite)
+        {
+            return Unauthorized();
+        }
+
+        return View(new ThreadCreateViewModel
+        {
+            ForumId = forum.Id, 
+            ForumName = forum.Name
+        });
+    }
+    
+    
+    [HttpPost("Forum/{forumId:guid}/Thread/Create")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(ThreadCreateViewModel model)
+    {
+        var forum = await _context.Forums.FindAsync(model.ForumId);
+        if (forum == null)
+        {
+            return NotFound();
+        }
+        
+        var isAutenticated = User.Identity!.IsAuthenticated;
+        if (!isAutenticated && !forum.AllowGuestWrite)
+        {
+            return Unauthorized();
+        }
+        
+        model.ForumName = _context.Forums
+                .Where(forum => forum.Id == model.ForumId)
+                .Select(fo => fo.Name)
+                .FirstOrDefault();
+
+        if (!ModelState.IsValid)
+        {
+            model.ForumName = forum.Name;
+            return View(model);
+        }
+
+        Guid? authorId;
+        string? guestName;
+
+        if (isAutenticated)
+        {
+            authorId = Guid.Parse(_userManager.GetUserId(User)!);
+            guestName = null;
+        }
+        else
+        {
+            authorId = null;
+            guestName = model.GuestName ?? "Guest";
+        }
+        
+        var createdDate = DateTime.UtcNow;
+
+        var newThread = new ForumThread
+        {
+            ForumId = model.ForumId,
+            Title = model.Title.Trim(),
+            AuthorId = authorId,
+            GuestName = guestName,
+            CreatedAt = createdDate,
+            IsPinned = model.IsPinned && User.IsInRole("Admin"),
+            Posts =
+            {
+                new Post
+                {
+                    Content = model.Content,
+                    AuthorId = authorId,
+                    GuestName = guestName,
+                    CreatedAt = createdDate
+                }
+            }
+        };
+        
+        _context.Threads.Add(newThread);
+        forum.ThreadCount++;
+        forum.PostCount++;
+
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Details", "Forum", new { id = forum.Id });
+    }
+    
+    
+   
+    
+    
+  
+}

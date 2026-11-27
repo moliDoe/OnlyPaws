@@ -1,0 +1,51 @@
+@model OnlyPaws.ViewModels.Thread.ThreadCreateViewModel  
+@section Styles {
+    <link rel="stylesheet" href="~/css/forum.css" asp-append-version="true"/>
+}
+
+<div class="forum-form-card">
+    <div class="forum-breadcrumb mb-2">
+        <a asp-controller="Home" asp-action="Index">Forum</a>
+        <span>/</span>
+        <a asp-controller="Forum" asp-action="Threads">@Model.ForumName</a>
+        <span>/</span>
+        <span>New Thread</span>
+    </div>
+    <h2 class="mb-1">Start a new thread</h2>
+    <p class="secondary-text mb-4">Share your topic with the community</p>
+
+    <form asp-controller="ForumThread" asp-action="Create" method="post">
+        <input type="hidden" asp-for="ForumId" />
+        <input type="hidden" asp-for="ForumName" />
+        @if (!User.Identity!.IsAuthenticated)
+        {
+            <div class="mb-3">
+                <label asp-for="GuestName" class="form-label">Your name</label>
+                <input asp-for="GuestName" class="form-control forum-input" placeholder="Guest"/>
+                <span asp-validation-for="GuestName" class="text-danger small"></span>
+            </div>
+        }
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Thread title</label>
+            <input asp-for="Title" id="threadTitle" type="text" class="form-control forum-input" placeholder="What is your thread about?"/>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Content" class="form-label">Message</label>
+            <textarea asp-for="Content" id="threadContent" class="form-control forum-input" rows="6" placeholder="Write the opening post here..."></textarea>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="form-check mb-4">
+                <input asp-for="IsPinned" class="form-check-input"/>
+                <label asp-for="IsPinned" class="form-check-label">Pin this thread</label>
+            </div>
+        }
+
+        <div class="d-flex justify-content-end gap-2">
+            <a asp-controller="Forum" asp-action="Threads" class="btn btn-forum">Cancel</a>
+            <button type="submit" class="btn btn-forum">Create Thread</button>
+        </div>
+    </form>
+</div>
