@@ -1,0 +1,28 @@
+@model OnlyPaws.ViewModels.Thread.ThreadDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="forum-breadcrumb mb-2">
+    <a asp-controller="Home" asp-action="Index">Forum</a>
+    <span>/</span>
+    <a asp-controller="Forum" asp-action="Details" asp-route-id="@Model.ForumId">@Model.ForumName</a>
+    <span>/</span>
+    <span>@Model.Title</span>
+</div>
+<p class="secondary-text mb-4">
+    @Model.ViewsCount views - @Model.RepliesCount replies
+</p>
+
+<div class="posts">
+    @foreach (var post in Model.Posts)
+    {
+        <div id="post-@post.Id" class="post-card">
+            <div class="post-author">@post.AuthorName</div>
+            <div class="post-date">@post.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</div>
+            <div class="post-content">@post.Content</div>
+        </div>
+    }
+</div>
+

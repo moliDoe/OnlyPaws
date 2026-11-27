@@ -58,11 +58,6 @@ public class ForumThreadController : Controller
         {
             return Unauthorized();
         }
-        
-        model.ForumName = _context.Forums
-                .Where(forum => forum.Id == model.ForumId)
-                .Select(fo => fo.Name)
-                .FirstOrDefault();
 
         if (!ModelState.IsValid)
         {
@@ -114,7 +109,54 @@ public class ForumThreadController : Controller
         
         return RedirectToAction("Details", "Forum", new { id = forum.Id });
     }
-    
+
+    [HttpGet("Thread/{id:guid}")]
+    public async Task<IActionResult> Details(Guid id)
+    {
+        var isAuthenticated = User.Identity!.IsAuthenticated;
+
+        var myThread = await _context.Threads
+            .Where(th => th.Id == id)
+            .Select(td => new ThreadDetailsViewModel
+            {
+                Id = td.Id,
+                Title = td.Title,
+                IsPinned = td.IsPinned,
+                ViewsCount = td.ViewsCount,
+                RepliesCount = td.RepliesCount,
+                ForumId = td.ForumId,
+                ForumName = td.Forum.Name,
+                Posts = td.Posts.Where(p => p.ThreadId == td.Id)
+                    .Select(p => new PostViewModel
+                    {
+                        Id = p.Id,
+                        IsAuthorGuest = p.Author == null,
+                        AuthorName = p.Author != null ? p.Author.UserName : (p.GuestName ?? "Guest"),
+                        Content = p.Content,
+                        CreatedAt = p.CreatedAt
+                    })
+                    .ToList<PostViewModel>()
+
+            })
+            .FirstOrDefaultAsync();
+
+        
+        if (myThread == null)
+        {
+            return NotFound();
+        }
+
+        if (!isAuthenticated)
+        {
+            return Challenge();
+        }
+
+        
+        myThread.ViewsCount++;
+        await _context.SaveChangesAsync();
+        
+        return View(myThread);
+    }
     
    
     
