@@ -13,4 +13,5 @@ public class ThreadDetailsViewModel
 
     public List<PostViewModel> Posts { get; set; } = new();
     
+    public bool CanReply  { get; set; }
 }

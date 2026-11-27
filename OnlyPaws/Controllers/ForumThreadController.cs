@@ -126,6 +126,7 @@ public class ForumThreadController : Controller
                 RepliesCount = td.RepliesCount,
                 ForumId = td.ForumId,
                 ForumName = td.Forum.Name,
+                CanReply = isAuthenticated || td.Forum.AllowGuestWrite,
                 Posts = td.Posts.Where(p => p.ThreadId == td.Id)
                     .Select(p => new PostViewModel
                     {
@@ -158,7 +159,58 @@ public class ForumThreadController : Controller
         return View(myThread);
     }
     
-   
+    [HttpPost("Thread/{id:guid}/Reply")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Reply(Guid id, PostCreateViewModel model)
+    {
+        var myThread = await _context.Threads
+            .Where(th => th.Id == id)
+            .Include(t => t.Forum)
+            .FirstOrDefaultAsync();
+        
+        if (myThread == null)
+        {
+            return NotFound();
+        }
+
+        var isAuthenticated = User.Identity!.IsAuthenticated;
+        if (!isAuthenticated && !myThread.Forum.AllowGuestWrite)
+        {
+            return Challenge();
+        }
+
+        Guid? postAuthorId;
+        string? guestName;
+
+        if (isAuthenticated)
+        {
+            postAuthorId = Guid.Parse(_userManager.GetUserId(User)!);
+            guestName = null;
+        }
+        else
+        {
+            postAuthorId = null;
+            guestName = model.GuestName ?? "Guest";
+        }
+
+        var post = new Post
+        {
+            ThreadId = myThread.Id,
+            Content = model.Content,
+            CreatedAt = DateTime.UtcNow,
+            AuthorId = postAuthorId,
+            GuestName = guestName
+        };
+
+        _context.Posts.Add(post);
+        myThread.RepliesCount++;
+        myThread.Forum.PostCount++;
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Details", new { id });
+
+    }
     
     
   
