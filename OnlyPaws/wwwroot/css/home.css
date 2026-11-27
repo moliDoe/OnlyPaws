@@ -2,19 +2,6 @@
     max-width: 1600px;
     margin: 0 auto;
 }
-.announcement-box {
-    background-color: var(--bg-card);
-    color: var(--text-primary);
-    border: 3px solid var(--border-color);
-    border-radius: 15px;
-    max-width: 800px; 
-    width: 100%;
-    margin: 0 auto;
-}
-.bi-patch-exclamation {
-    color: var(--btn-hover);
-    flex-shrink: 0;
-}
 .category-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
