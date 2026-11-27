@@ -3,22 +3,82 @@
 @{
     ViewData["Title"] = Model.Name;
 }
-@* do poprawy *@
-<h1>@Model.Name</h1> 
-<p>Category: @Model.CategoryName</p>
 
-@if (!string.IsNullOrEmpty(Model.Description))
-{
-    <div class="forum-description">@Model.Description</div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/forum.css" asp-append-version="true"></link>
 }
 
-@*tu dodanie thread bedzie create kiedys + gdzies isPinned *@
+<div class="forum-details-container mt-4">
+    <div class="forum-breadcrumb mb-2">
+        <a asp-controller="Home" asp-action="Index">Home</a>
+        <span>/</span>
+        <a asp-controller="Forum" asp-action="Index">Forums</a>
+        <span>/</span>
+        <a asp-controller="Forum" asp-action="Details" asp-route-id="@Model.Id">@Model.CategoryName</a>
+        <span>/</span>
+        <a asp-controller="Forum" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+    </div>
 
-<h3>Threads: @Model.Threads.Count</h3>
+    <div class="forum-header-card d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-<ul>
-    @foreach (var thread in Model.Threads)
-    {
-        <li>@thread.Title, Author: @thread.AuthorName, Posts: @thread.PostsCount</li>
-    }
-</ul>
+        <div class="forum-info">
+            <h2 class="mb-1">@Model.Name</h2>
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <p class="secondary-text mb-0">@Model.Description</p>
+            }
+        </div>
+        <div class="forum-counts">
+            <div class="forum-stats d-flex gap-2 text-center">
+                <div class="stats-label">                               
+                    <div class="fw-bold"> count </div>    
+                    <div class="stats-text"> <i class="bi bi-people-fill"></i> </div>              
+                </div>                                                  
+            
+                <div class="stats-label">
+                    <div class="fw-bold"> @Model.Threads.Count</div>
+                    <div class="stats-text"> threads</div>
+                </div>
+
+                <div class="stats-label">
+                    <div class="fw-bold"> count</div>
+                    <div class="stats-text"> posts</div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="forum-add">
+        <a asp-controller="Forum" asp-action="CreateThread" asp-route-forumId="@Model.Id" class="btn btn-forum">
+            <i class="bi bi-plus-circle-fill me-2"></i>New Thread
+        </a>
+    </div>
+
+    @*tu dodanie thread bedzie create kiedys + gdzies isPinned *@
+    <div class="threads-list d-flex flex-column gap-2">
+        @if (Model.Threads == null || Model.Threads.Count == 0)
+        {
+            <div class="threads-list-p text-center">
+                <p class="secondary-text mb-0">No threads in this forum yet... Start the first one ♡</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var thread in Model.Threads)
+            {
+                <!--tu bedzie kontroler forum przekierowujacy na widok thread -->
+                <div class="thread-box">
+                    <a href="#" class="thread-row d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="fw-bold">@thread.Title</div>
+                            <div class="thread-author"><i class="bi bi-person-fill"></i>: @thread.AuthorName</div>
+                        </div>
+                    </a>   
+                    <div class="thread-stats d-flex gap-4 text-center">
+                        <div><i class="bi bi-chat-square-heart-fill me-2"></i>@thread.PostsCount</div>
+                        <div><i class="bi bi-eye-fill me-2"></i>@thread.ViewsCount</div>
+                    </div>
+                </div>  
+            }
+        }
+    </div>
+</div>
