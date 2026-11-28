@@ -152,3 +152,19 @@
 .thread-stats {
     color: var(--bg-main);
 }
+.thread-opening-post {
+    border-top: 3px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    padding: 14px;
+}
+.reply-text {
+    padding-left: 14px;
+}
+.post-card {
+    border-top: 2px solid var(--border-color);
+    padding: 14px;
+}
+.reply-form-card{
+    border-top: 2px solid var(--border-color);
+    padding: 14px;
+}
