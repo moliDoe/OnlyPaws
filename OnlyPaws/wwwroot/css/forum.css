@@ -152,19 +152,59 @@
 .thread-stats {
     color: var(--bg-main);
 }
-.thread-opening-post {
-    border-top: 3px solid var(--border-color);
-    border-bottom: 2px solid var(--border-color);
-    padding: 14px;
-}
+
 .reply-text {
     padding-left: 14px;
 }
-.post-card {
-    border-top: 2px solid var(--border-color);
+.thread-details-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    border-left: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 24px;
+}
+.thread-opening-post {
+     background-color: var(--bg-main);
+     padding: 14px;
+     border-bottom: 2px solid var(--border-color);
+     border-left: 2px solid var(--border-color);
+     border-radius: 15px;
+ }
+.thread-container {
     padding: 14px;
+    border-radius: 15px;
+}
+.thread-header {
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border-color);
+}
+.posts-list {
+    background-color: var(--bg-main);
+    padding: 14px;
+    border-bottom: 2px solid var(--border-color);
+    border-left: 2px solid var(--border-color);
+    border-radius: 15px;
+}
+.post-card {
+    padding: 14px;
+    background-color: var(--bg-card);
+    border-bottom: 2px solid var(--border-color);
+    border-left: 2px solid var(--border-color);
+    border-radius: 15px;
+}
+.post-content {
+    overflow-wrap: break-word;
+    padding: 6px;
+    opacity: 0.85;
 }
 .reply-form-card{
-    border-top: 2px solid var(--border-color);
+    margin-top: 16px;
+    background-color: var(--bg-main);
     padding: 14px;
+    border-bottom: 2px solid var(--border-color);
+    border-left: 2px solid var(--border-color);
+    border-radius: 15px;
 }

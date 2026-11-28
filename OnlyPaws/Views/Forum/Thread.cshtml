@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="~/css/forum.css" asp-append-version="true"/>
 }
 
-<div class="forum-details-container mt-4">
+<div class="thread-details-container d-flex flex-column mt-4">
     <div class="forum-breadcrumb mb-3">
         <a asp-controller="Home" asp-action="Index">Home</a>
         <span>/</span>
@@ -18,65 +18,90 @@
     </div>
 
     <div class="thread-opening-post mb-4">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
-            <div>
-                <h2 class="mb-1">Przekazac nazwe forum</h2>
-                <div class="thread-author">
-                    <i class="bi bi-person-fill"></i> <strong>NazwaUsera</strong> · 28.11.2026 21:37
+        <div class="thread-container">
+            <div class="thread-header d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+                <div>
+                    <h2 class="mb-1">Przekazac nazwe thread</h2>
+                    <div class="thread-author">
+                        <i class="bi bi-person-fill"></i> <strong>NazwaUsera</strong> · 28.11.2026 21:37
+                    </div>
+                </div>
+                <div class="d-flex gap-3 post-meta mt-2">
+                    <span><i class="bi bi-chat-square-heart-fill me-1"></i>count</span>
+                    <span><i class="bi bi-eye-fill me-1"></i>count</span>
                 </div>
             </div>
-            <div class="d-flex gap-3 post-meta mt-2">
-                <span><i class="bi bi-chat-square-heart-fill me-1"></i>count</span>
-                <span><i class="bi bi-eye-fill me-1"></i>count</span>
+            
+            <div class="post-content">
+                opisssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                sssssss ssssssssssssssssss ssssssssssssssssssssssss
+                ssssssssssssssssssss ssssssssssssssssssssss sssssssssss
+                ssssssssssss ssssssssssssssssss
             </div>
         </div>
-
-        <div class="post-content">
-            opisssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-            sssssss ssssssssssssssssss ssssssssssssssssssssssss
-            ssssssssssssssssssss ssssssssssssssssssssss sssssssssss
-            ssssssssssss ssssssssssssssssss
-        </div>
     </div>
-    <h5 class="reply-text mb-3">Replies ♡</h5>
+    
 
     <div class="posts-list d-flex flex-column gap-3 mb-4">
-        <div class="post-card">
+        <h5 class="reply-text mb-1">Replies ♡</h5>
+        <div class="post-card  d-flex flex-column">
             <div class="post-header d-flex justify-content-between align-items-center mb-2">
                 <div class="fw-bold">
                     <i class="bi bi-person-fill me-1"></i>User
                 </div>
                 <div class="post-meta small">28.11.2026 21:39</div>
             </div>
-            <div class="post-content">
+            <div class="post-content mb-3">
                 postttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttjsduhdhuahu
                 adwudawhaduiudaiw udawuhdahuaduhudhahuad duhadwuhduaiwhudhu
             </div>
+            <button class="btn btn-forum align-self-end" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#replyForm"
+                    aria-expanded="false" aria-controls="replyForm">
+                <i class="bi bi-reply-fill me-1"></i>Reply
+            </button>
         </div>
-        
-        <div class="post-card">
+
+        <div class="post-card d-flex flex-column">
             <div class="post-header d-flex justify-content-between align-items-center mb-2">
                 <div class="fw-bold">
                     <i class="bi bi-person-fill me-1"></i>User
                 </div>
                 <div class="post-meta small">28.11.2026 22:05</div>
             </div>
-            <div class="post-content">
+            <div class="post-content mb-3">
                 postttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttjsduhdhuahu
                 adwudawhaduiudaiw udawuhdahuaduhudhahuad duhadwuhduaiwhudhu
             </div>
+            <!-- tu reply ze bedzie cytowalo odpowiedz uzytkownika-->
+            <button class="btn btn-forum align-self-end" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#replyForm"
+                    aria-expanded="false" aria-controls="replyForm">
+                <i class="bi bi-reply-fill me-1"></i>Reply
+            </button>
         </div>
     </div>
+    
+    <!-- tu odpowiedz po prostu do wątku-->
+    <button class="btn btn-forum align-self-end" type="button"
+            data-bs-toggle="collapse" data-bs-target="#replyForm"
+            aria-expanded="false" aria-controls="replyForm">
+        <i class="bi bi-reply-fill me-1"></i>Reply
+    </button>
 
-    <div class="reply-form-card">
-        <h5 class="mb-3">Leave a reply</h5>
-        <form method="post">
-            <div class="mb-3">
-                <textarea class="form-control forum-input" rows="4" placeholder="Write your reply here..."></textarea>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-forum">Post Reply</button>
-            </div>
-        </form>
+    <div class="collapse" id="replyForm">
+        <div class="reply-form-card">
+            <h5 class="mb-3">Leave a reply</h5>
+           
+            <form method="post">
+                <div class="mb-3">
+                    <textarea class="form-control forum-input" rows="4" placeholder="Write your reply here..."></textarea>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-forum me-2" data-bs-toggle="collapse" data-bs-target="#replyForm">Cancel</button>
+                    <button type="submit" class="btn btn-forum"><i class="bi bi-send me-2"></i>Post Reply</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
