@@ -127,6 +127,7 @@ public class ForumThreadController : Controller
                 ForumId = td.ForumId,
                 ForumName = td.Forum.Name,
                 CanReply = isAuthenticated || td.Forum.AllowGuestWrite,
+                AllowGuestRead = td.Forum.AllowGuestRead,
                 Posts = td.Posts.Where(p => p.ThreadId == td.Id)
                     .Select(p => new PostViewModel
                     {
@@ -147,11 +148,12 @@ public class ForumThreadController : Controller
             return NotFound();
         }
 
-        if (!isAuthenticated)
+        bool guestHaveReadPermission = myThread.AllowGuestRead;
+        
+        if (!isAuthenticated && !guestHaveReadPermission)
         {
             return Challenge();
         }
-
         
         myThread.ViewsCount++;
         await _context.SaveChangesAsync();
@@ -163,6 +165,7 @@ public class ForumThreadController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Reply(Guid id, PostCreateViewModel model)
     {
+        
         var myThread = await _context.Threads
             .Where(th => th.Id == id)
             .Include(t => t.Forum)
