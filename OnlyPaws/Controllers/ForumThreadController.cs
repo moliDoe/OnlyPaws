@@ -155,7 +155,9 @@ public class ForumThreadController : Controller
             return Challenge();
         }
         
-        myThread.ViewsCount++;
+        var threadEntity = await _context.Threads.FindAsync(id);
+        threadEntity!.ViewsCount++;
+        
         await _context.SaveChangesAsync();
         
         return View(myThread);
